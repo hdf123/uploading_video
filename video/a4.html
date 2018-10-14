@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<script src="js/jquery.min.js" type="text/javascript" charset="utf-8"></script>
+	</head>
+	<body>
+		<div style="height:300px;margin-top:-20px">
+			<div id="addContent" style="height:150px;margin-top:-10px;padding-top:5px;margin-left:-1.4em">
+			<div style="margin-left:-0.7em" >照片(可上传三张)</div>
+				<label id="ppp" style="display:block;float:left;"  class="ui_button ui_button_primary" for="1"><img style="width: 84px;height: 84px;" src="${ctx}/images/photoxf.png"></label>
+					<input type="file" id="1" name="take-picture" class="take-picture"  accept="image/*"   style="position:absolute;clip:rect(0 0 0 0);width: 0px;height: 0px">
+			</div>
+			<div id="addVideoDiv" style="height:150px;margin-top:-10px;padding-top:5px;margin-left:-1.4em">
+			<div style="margin-left:-0.7em">视频(可上传一个视频)</div>
+		 		<label id="vvv" style="display:block;float:left;"  class="ui_button ui_button_primary" for="y"><img id="videoImg" style="width: 100px;height: 100px;" src="${ctx}/images/videoxf.png"></label>
+					<input  type="file" id="y" name="take-video" class="take-video"  accept="video/*"   style="position:absolute;clip:rect(0 0 0 0);width: 0px;height: 0px">
+			
+				<video id="video" controls="controls" style="width:100px;height:100px" onclick="showVideo()">
+        		</video>
+			</div>
+		</div>
+
+<script type="text/javascript">
+	var videoFile = document.getElementById('y')
+	function getFileURL(file) {
+		
+		var getUrl = null;
+			if (window.createObjectURL != undefined) { // basic
+				getUrl = window.createObjectURL(file);
+			} else if (window.URL != undefined) { // mozilla(firefox)
+				getUrl = window.URL.createObjectURL(file);
+			} else if (window.webkitURL != undefined) { // webkit or chrome
+				getUrl = window.webkitURL.createObjectURL(file);
+			}
+			return getUrl;
+		}
+	$("#video").hide()
+		var selectFile = function() {  //获取视频的大小 ：this.files[0].size
+			var url = getFileURL(this.files[0]);//把当前的 files[0] 传进去
+			if (url) {
+				var srcNew = "<source id='v1' src='"+url+"' ></source>";
+				$("#video").append(srcNew)
+			}
+			$("#videoImg").hide()
+			$("#video").show()
+		}
+		videoFile.addEventListener('change', selectFile)
+</script>
+	</body>
+</html>
